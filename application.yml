@@ -1,0 +1,13 @@
+kestra:
+  repository:
+    type: memory
+  queue:
+    type: memory
+  storage:
+    type: local
+    local:
+      base-path: /tmp/storage
+  server:
+    port: 8080
+    host: "0.0.0.0"
+    access-control-allow-origin: "*"
