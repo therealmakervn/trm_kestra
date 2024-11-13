@@ -24,32 +24,8 @@ services:
   kestra:
     build: .
     environment:
-      KESTRA_CONFIGURATION: |
-        datasources:
-          postgres:
-            url: ${DATABASE_URL}
-            driverClassName: org.postgresql.Driver
-        kestra:
-          repository:
-            type: postgres
-          queue:
-            type: postgres
-          storage:
-            type: local
-            local:
-              base-path: "/app/storage"
-          tasks:
-            tmp-dir:
-              path: /tmp/kestra-wd/tmp
-          server:
-            basic-auth:
-              enabled: false
-            liveness:
-              enabled: true
-              interval: 1s
-              timeout: 5s
-              initialDelay: 0s
-              heartbeatInterval: 1s
+      MICRONAUT_CONFIG_FILES: /app/confs/application.yml
+      DATABASE_URL: ${DATABASE_URL}
     volumes:
       - kestra-data:/app/storage
       - tmp-data:/tmp/kestra-wd
