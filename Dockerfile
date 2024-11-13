@@ -14,4 +14,4 @@ USER kestra
 
 # Sử dụng entrypoint script có sẵn
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
-CMD ["server", "standalone", "--worker-thread=128"]
+CMD ["server", "standalone"]
