@@ -54,7 +54,9 @@ services:
       - ./data/flows/:/app/flows/:ro
       - ./data/application-postgres.yml:/app/confs/application.yml:ro
     environment:
-      MICRONAUT_CONFIG_FILES: /app/confs/application.yml
+      KESTRA_CONFIGURATION: |
+        kestra:
+          server-type: STANDALONE
     ports:
       - 8080:8080
     links:

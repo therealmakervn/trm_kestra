@@ -24,13 +24,9 @@ services:
   kestra:
     build: .
     environment:
-      MICRONAUT_CONFIG_FILES: /app/confs/application.yml
       KESTRA_CONFIGURATION: |
-        datasources:
-          postgres:
-            url: ${DATABASE_URL}
-            driverClassName: org.postgresql.Driver
         kestra:
+          server-type: STANDALONE
           repository:
             type: postgres
           queue:
@@ -47,6 +43,10 @@ services:
               enabled: false
             host: "0.0.0.0"
             port: ${PORT:-8080}
+        datasources:
+          postgres:
+            url: ${DATABASE_URL}
+            driverClassName: org.postgresql.Driver
     volumes:
       - kestra-data:/app/storage
       - tmp-data:/tmp/kestra-wd
