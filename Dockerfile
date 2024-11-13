@@ -1,19 +1,14 @@
-FROM eclipse-temurin:21-jre-jammy
+FROM kestra/kestra:latest
 
-WORKDIR /app
+# Sử dụng user root để có quyền thực thi
+USER root
 
-RUN groupadd kestra && \
-    useradd -m -g kestra kestra
+# Tạo các thư mục cần thiết
+RUN mkdir -p /app/storage /tmp/kestra-wd/tmp && \
+    chown -R kestra:kestra /app /tmp/kestra-wd
 
-COPY --chown=kestra:kestra docker /
-
-RUN mkdir -p /app/kestra /app/storage && \
-    chown -R kestra:kestra /app
-
-COPY --chown=kestra:kestra kestra /app/kestra/
-RUN chmod +x /app/kestra/kestra
-
+# Chuyển về user kestra
 USER kestra
 
-ENTRYPOINT ["/app/kestra/kestra"]
+# Command để chạy kestra server
 CMD ["server", "standalone"]
