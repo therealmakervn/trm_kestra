@@ -24,7 +24,11 @@ services:
   kestra:
     build: .
     environment:
-      DATABASE_URL: ${DATABASE_URL}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
       PORT: ${PORT:-8080}
     volumes:
       - kestra-data:/app/storage
