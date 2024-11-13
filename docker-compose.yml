@@ -3,6 +3,8 @@ volumes:
     driver: local
   kestra-data:
     driver: local
+  tmp-data:
+    driver: local
 
 services:
   postgres:
@@ -42,8 +44,15 @@ services:
           server:
             basic-auth:
               enabled: false
+            liveness:
+              enabled: true
+              interval: 1s
+              timeout: 5s
+              initialDelay: 0s
+              heartbeatInterval: 1s
     volumes:
       - kestra-data:/app/storage
+      - tmp-data:/tmp/kestra-wd
     ports:
       - "8080:8080"
     depends_on:
