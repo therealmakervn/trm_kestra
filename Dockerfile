@@ -6,12 +6,14 @@ RUN groupadd kestra && \
     useradd -m -g kestra kestra
 
 COPY --chown=kestra:kestra docker /
-COPY --chown=kestra:kestra build/executable/* /app/
 
-RUN chmod +x /app/kestra && \
+RUN mkdir -p /app/kestra /app/storage && \
     chown -R kestra:kestra /app
+
+COPY --chown=kestra:kestra kestra /app/kestra/
+RUN chmod +x /app/kestra/kestra
 
 USER kestra
 
-ENTRYPOINT ["/app/kestra"]
+ENTRYPOINT ["/app/kestra/kestra"]
 CMD ["server", "standalone"]
